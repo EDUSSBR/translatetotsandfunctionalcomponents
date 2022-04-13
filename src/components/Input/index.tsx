@@ -9,11 +9,20 @@ import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+interface IconProps {
+  size: number
+}
+interface InputInterface{
+  name: string
+  icon: (icon: IconProps) => JSX.Element
+}
 
-  const [isFocused, setIsFocused] = useState(false);
-  const [isFilled, setIsFilled] = useState(false);
+
+const Input = ({ name, icon: Icon, ...rest }: InputInterface) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+  const [isFilled, setIsFilled] = useState<boolean>(false);
 
   const { fieldName, defaultValue, registerField } = useField(name);
 
