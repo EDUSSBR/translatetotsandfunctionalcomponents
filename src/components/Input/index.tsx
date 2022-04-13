@@ -13,12 +13,14 @@ interface IconProps {
   size: number
 }
 interface InputInterface{
+
   name: string
-  icon: (icon: IconProps) => JSX.Element
+  placeholder?: string
+  icon?: (icon: IconProps) => JSX.Element
 }
 
 
-const Input = ({ name, icon: Icon, ...rest }: InputInterface) => {
+const Input = ({ name, placeholder,icon: Icon, ...rest }: InputInterface) => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const [isFocused, setIsFocused] = useState<boolean>(false);

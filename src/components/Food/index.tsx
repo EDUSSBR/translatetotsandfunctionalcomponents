@@ -11,17 +11,19 @@ interface FoodItem {
   image: string
   description:string
   price: string
+  available: boolean
 }
 
 interface FoodProps {
-  handleEditFood: () => void
+  handleEditFood: (food: FoodItem) => void
   handleDelete: (id: string) => void
   food: FoodItem
 }
 
 
 const Food = ({food, handleEditFood, handleDelete} :FoodProps ) => {
-  const [isAvailable, setIsAvailable] = useState<boolean>()
+ const {available: initialAvailability} = food
+  const [isAvailable, setIsAvailable] = useState<boolean>(initialAvailability)
 
   const toggleAvailable = async () => {
 
@@ -32,8 +34,6 @@ const Food = ({food, handleEditFood, handleDelete} :FoodProps ) => {
 
     setIsAvailable(!isAvailable);
   }
-
-
 
     return (
       <Container available={isAvailable}>
@@ -52,7 +52,7 @@ const Food = ({food, handleEditFood, handleDelete} :FoodProps ) => {
             <button
               type="button"
               className="icon"
-              onClick={handleEditFood}
+              onClick={()=>handleEditFood(food)}
               data-testid={`edit-food-${food.id}`}
             >
               <FiEdit3 size={20} />
